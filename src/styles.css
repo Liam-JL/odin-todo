@@ -1,0 +1,93 @@
+/* CSS Reset - Normalize & Reset Default Styles */
+
+/* Box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset button styles */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Reset form elements */
+input, textarea, select, button {
+  font: inherit;
+  outline: none;
+  border: none;
+}
+
+/* Reset heading and paragraph styles */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Remove default table spacing */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remove default styling for images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Set smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure body fills viewport */
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Colours */
+:root {
+    /* Light Mode */
+    --bg-color: #F9FAFB;
+    --text-color: #111827;
+    --card-color: #FFFFFF;
+    --border-color: #E5E7EB;
+    --accent-color: #3A7DFF;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Dark Mode */
+      --bg-color: #1F2937;
+      --text-color: #F9FAFB;
+      --card-color: #374151;
+      --border-color: #4B5563;
+      --accent-color: #3A7DFF;
+    }
+  }
+
+.header__account-menu {
+  border-radius: 50%;
+}

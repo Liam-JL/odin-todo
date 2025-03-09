@@ -58,6 +58,7 @@ handles user input and adds data to model
 
 5. Design the app layout
 Keep it simple, sidebar and main area for rendering tasks within each project
+have button show what tab the user is on with perma pushed down like what ryan said
 
 
 Notes   
