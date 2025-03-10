@@ -169,6 +169,12 @@ body {
   justify-content: center;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .task{
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -209,6 +215,42 @@ body {
 .task__priority {
   color: var(--text-secondary)
 }
+
+.tab-bar {
+  background-color: var(--card-color);
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.tab-bar__btn {
+  color: var(--text-secondary);
+}
+
+.tab-bar__icon {
+  height: 20px;
+  width: 20px;
+}
+
+.tab-bar__btn--add {
+  color: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--card-color);
+  position: relative;
+  bottom: 2.5rem;
+  filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.25));
+}
+
+.tab-bar__icon--add {
+  height: 44px;
+  width: 44px;
+}
+
 
 
 
