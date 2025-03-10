@@ -72,6 +72,7 @@ body {
     /* Light Mode */
     --bg-color: #F9FAFB;
     --text-color: #111827;
+    --text-secondary: #6B7280;
     --card-color: #FFFFFF;
     --border-color: #E5E7EB;
     --accent-color: #3A7DFF;
@@ -82,12 +83,138 @@ body {
       /* Dark Mode */
       --bg-color: #1F2937;
       --text-color: #F9FAFB;
+      --text-secondary: #9CA3AF;
       --card-color: #374151;
       --border-color: #4B5563;
       --accent-color: #3A7DFF;
     }
   }
 
-.header__account-menu {
-  border-radius: 50%;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto+Mono:wght@400&display=swap');
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .mono {
+    font-family: 'Roboto Mono', monospace;
+  }
+
+
+
+
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  gap: 1rem;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.header__title {
+  position: relative;
+  left: 20px;
+  text-align: center;
+  flex-grow: 1;
+  font-size: 22px;
+}
+
+.header__user-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.projects {
+  display: flex;
+  font-size: 0.8rem;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  overflow: auto;
+  padding-bottom: 0.7rem;
+}
+
+.projects::-webkit-scrollbar {
+  display: none;
+}
+
+.project-btn {
+  text-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  gap: 0.2rem;
+}
+
+.project-btn:nth-child(1) {
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+}
+
+.project__counter {
+  font-size: 0.6rem;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+}
+
+.task{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-auto-rows: auto;
+  grid-column-gap: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.task__checkbox {
+  color: var(--text-secondary);
+  grid-row: 1/-1;
+}
+
+.task__title {
+  font-size: 0.9rem;
+}
+
+.task__description {
+  grid-column: 2;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.task__due-date {
+  grid-column: 2;
+  justify-self: start;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  border: 1px solid var(--text-secondary);
+  padding: 0.3rem;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  border-radius: 50px;
+  margin-top: 0.3rem;
+}
+
+.task__priority {
+  color: var(--text-secondary)
+}
+
+
+
+
+
+
+
+
+
