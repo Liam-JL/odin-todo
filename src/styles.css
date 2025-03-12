@@ -145,7 +145,7 @@ body {
   display: none;
 }
 
-.project-btn {
+.projects__btn {
   text-wrap: nowrap;
   display: flex;
   align-items: center;
@@ -153,12 +153,12 @@ body {
   gap: 0.2rem;
 }
 
-.project-btn:nth-child(1) {
+.projects__btn:nth-child(1) {
   padding-left: 1.5rem;
   padding-right: 1rem;
 }
 
-.project__counter {
+.projects__counter {
   font-size: 0.6rem;
   background-color: var(--border-color);
   border-radius: 50%;
@@ -197,6 +197,10 @@ body {
   grid-column: 2;
   font-size: 0.7rem;
   color: var(--text-secondary);
+  line-height: 1em;
+  max-height: 2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task__due-date {
@@ -251,6 +255,51 @@ body {
   width: 44px;
 }
 
+.create-project-modal {
+  margin: auto; 
+  border: 0;
+  box-shadow: 0 0 1em rgb(0 0 0 / .3);
+  border-radius: 10px;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  background-color: var(--card-color);
+  row-gap: 1rem;
+  width: 90vw;
+  max-width: 400px;
+}
+
+.create-project-modal__header {
+  grid-column: 1/-1;
+  color: var(--text-color);
+}
+
+.create-project-modal__input {
+  grid-column: 1/-1;
+  padding: 0.6rem;
+  border-radius: 4px;
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.create-project-modal__input:focus {
+  border-bottom: solid 3px var(--accent-color);
+}
+
+::placeholder{
+  color: var(--text-secondary);
+}
+
+.create-project-modal__cancel-btn {
+  grid-column: 2;
+  color: var(--accent-color);
+}
+
+.create-project-modal__done-btn {
+    grid-column: 3;
+    color: var(--text-secondary);
+}
 
 
 
