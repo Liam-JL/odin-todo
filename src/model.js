@@ -10,10 +10,6 @@ class Task {
         this.checked = false;
     }
 
-    set id(newId) {
-        this.#id = newId;
-    }
-
     get id() {
         return this.#id;
     }
@@ -53,42 +49,8 @@ export class TaskService {
         this.taskRepo.tasks[taskIndex] = newTask;
         return newTask;  
     } 
+
+    //move task method needed
+
+    //update task statically is whatever keep in same place. have seperate update modal or something
 }
-
-export class ProjectRepository {
-    #projects = new Set(); // change to localStorage
-
-    get projects() {
-        return this.#projects;
-    }
-
-    saveProject(project) {
-        this.#projects.add(project)
-    }
-
-    deleteProject(title) {
-        this.#projects.delete(title);
-    }
-}
-
-export class ProjectService {
-    constructor(repo) {
-        this.projectRepo = repo;
-        this.createProject("inbox");
-    }
-
-    createProject(title) {
-        this.projectRepo.saveProject(title);
-    }
-
-    updateProject(oldTitle, newTitle) {
-        
-    }
-}
-
-
-
-
-
-
-

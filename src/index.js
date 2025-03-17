@@ -1,10 +1,13 @@
 import "./styles.css"
-import {TaskRepository, TaskService, ProjectRepository, ProjectService} from "./model"
+import { ProjectService, ProjectRepository } from "./project_service";
+import { TaskService, TaskRepository } from "./task_service";
+import { View } from "./view";
 
 class AppController {
-    constructor(taskService, projectService) {
+    constructor(taskService, projectService, view) {
         this.taskService = taskService;
         this.projectService = projectService;
+        this.view = view
 
         //Casche DOM
         this.addProjectBtn = document.getElementById("addProjectBtn");
@@ -14,6 +17,11 @@ class AppController {
         this.addTaskBtn = document.getElementById("addTaskBtn");
         this.tabBarSortBtn = document.getElementById("tabBarSortBtn");
         this.createProjectModal = document.getElementById("createProjectModal");
+        this.projectModalCancelBtn = document.getElementById("projectModalCancelBtn");
+        this.createProjectForm = document.getElementById("createProjectForm");
+        this.projectModalInput = document.getElementById("projectModalInput");
+        this.userProjects = document.getElementById("userProjects");
+        this.taskModal = document.getElementById("taskModal");
 
         //Event Listeners
         this.addProjectBtn.addEventListener("click", this.onAddProjectBtn.bind(this));
@@ -22,6 +30,8 @@ class AppController {
         this.tabBarProjectsBtn.addEventListener("click", this.onTabBarProjectsBtn.bind(this));
         this.addTaskBtn.addEventListener("click", this.onAddTaskBtn.bind(this));
         this.tabBarSortBtn.addEventListener("click", this.onTabBarSortBtn.bind(this));
+        this.projectModalCancelBtn.addEventListener("click", this.onProjectModalCancelBtn.bind(this));
+        this.createProjectForm.addEventListener("submit", this.onCreateProjectForm.bind(this));
     }
 
     //Controller methods
@@ -44,13 +54,28 @@ class AppController {
 
     onAddTaskBtn() {
         console.log("add task button clicked")
+        this.taskModal.showModal();
     }
 
     onTabBarSortBtn() {
         console.log("tab bar sort button clicked")
     }
+
+    onProjectModalCancelBtn() {
+        this.createProjectModal.close();
+    }
+
+    onCreateProjectForm(event) {
+        event.preventDefault();
+        const projectTitle = this.projectModalInput.value;
+        const newProject = this.projectService.createProject(projectTitle);
+        const newBtn = this.view.createProjectBtn(newProject);
+        this.view.renderProjectBtn(this.userProjects, newBtn);
+        this.createProjectModal.close();
+    }
 }
 
 const taskService = new TaskService(new TaskRepository());
 const projectService = new ProjectService(new ProjectRepository());
-const appController = new AppController(taskService, projectService);
+const view = new View()
+const appController = new AppController(taskService, projectService, view);
