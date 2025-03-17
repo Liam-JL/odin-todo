@@ -22,6 +22,7 @@ class AppController {
         this.projectModalInput = document.getElementById("projectModalInput");
         this.userProjects = document.getElementById("userProjects");
         this.taskModal = document.getElementById("taskModal");
+        this.taskModalCloseBtn = document.getElementById("taskModalCloseBtn");
 
         //Event Listeners
         this.addProjectBtn.addEventListener("click", this.onAddProjectBtn.bind(this));
@@ -32,8 +33,9 @@ class AppController {
         this.tabBarSortBtn.addEventListener("click", this.onTabBarSortBtn.bind(this));
         this.projectModalCancelBtn.addEventListener("click", this.onProjectModalCancelBtn.bind(this));
         this.createProjectForm.addEventListener("submit", this.onCreateProjectForm.bind(this));
+        this.taskModalCloseBtn.addEventListener("click", this.onTaskModalCloseBtn.bind(this));
     }
-
+    
     //Controller methods
     onAddProjectBtn() {
         console.log("Add project button clicked")
@@ -72,6 +74,10 @@ class AppController {
         const newBtn = this.view.createProjectBtn(newProject);
         this.view.renderProjectBtn(this.userProjects, newBtn);
         this.createProjectModal.close();
+    }
+
+    onTaskModalCloseBtn() {
+        this.taskModal.close();
     }
 }
 
