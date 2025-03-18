@@ -11,5 +11,23 @@ export class View {
         parent.appendChild(btn);
     } 
 
+    createProjectOption(projectTitle) {
+        const option = document.createElement("option")
+        option.setAttribute("value", projectTitle);
+        option.classList.add("task-form__option");
+        option.textContent = projectTitle;
+        return option
+    }
+
+    renderProjectOptions(parent, options) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild)
+        };
+
+        for(const option of options) {
+            parent.appendChild(option);
+        }
+    }
+
     
 }

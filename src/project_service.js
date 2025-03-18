@@ -34,6 +34,7 @@ export class ProjectRepository {
 export class ProjectService {
     constructor(repo) {
         this.repo = repo;
+        this.createProject("Inbox");
     }
 
     createProject(title) {
@@ -45,5 +46,13 @@ export class ProjectService {
 
     updateProjectTitle(projectId, newTitle) {
         this.repo.updateProjectTitle(projectId, newTitle)
+    }
+
+    getProjects() {
+        return this.repo.projects;
+    }
+
+    getProjectTitle(projectId) {
+        return this.repo.projects[projectId].title;
     }
 }
