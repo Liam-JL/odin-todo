@@ -11,9 +11,9 @@ export class View {
         parent.appendChild(btn);
     } 
 
-    createProjectOption(projectTitle) {
+    createProjectOption(projectTitle, projectId) {
         const option = document.createElement("option")
-        option.setAttribute("value", projectTitle);
+        option.setAttribute("value", projectId);
         option.classList.add("task-form__option");
         option.textContent = projectTitle;
         return option
