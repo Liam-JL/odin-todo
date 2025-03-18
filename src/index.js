@@ -65,7 +65,7 @@ class AppController {
         const projectOptions = [];
         Object.keys(projects).forEach(key => {
             const projectTitle = this.projectService.getProjectTitle(key);
-            const projectOption = this.view.createProjectOption(projectTitle);
+            const projectOption = this.view.createProjectOption(projectTitle, key);
             projectOptions.push(projectOption);
         })
         this.view.renderProjectOptions(this.taskProjectInput, projectOptions);
