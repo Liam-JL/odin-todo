@@ -1,12 +1,13 @@
 class Task {
     #id = Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9*Math.pow(10, 12)).toString(36);
 
-    constructor(title = '', projectId = "inbox", description = null, dueDate = null, priority = false) {
+    constructor(title, dueDate, dueTime, description, projectId) {
         this.title = title;
         this.projectId = projectId;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority = priority;
+        this.dueTime = dueTime;
+        this.priority = false;
         this.checked = false;
     }
 
@@ -58,7 +59,8 @@ export class TaskService {
 
     //take inputs as array
     createTask(inputs) {
-        const task = new Task(inputs);
+        const task = new Task(...inputs);
         this.repo.saveTask(task);
+        console.log(task)
     }
 }

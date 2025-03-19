@@ -7,7 +7,8 @@ class AppController {
     constructor(taskService, projectService, view) {
         this.taskService = taskService;
         this.projectService = projectService;
-        this.view = view
+        this.view = view;
+        this.activeProject = Object.keys(projectService.getProjects())[0];
 
         //Casche DOM
         this.addProjectBtn = document.getElementById("addProjectBtn");
@@ -38,7 +39,7 @@ class AppController {
         this.projectModalCancelBtn.addEventListener("click", this.onProjectModalCancelBtn.bind(this));
         this.createProjectForm.addEventListener("submit", this.onCreateProjectForm.bind(this));
         this.taskModalCloseBtn.addEventListener("click", this.onTaskModalCloseBtn.bind(this));
-        this.taskForm.addEventListener("submit", this.onTaskForm)
+        this.taskForm.addEventListener("submit", this.onTaskForm.bind(this));
         }
 
     //Controller methods
@@ -96,6 +97,13 @@ class AppController {
     onTaskForm(event) {
         event.preventDefault();
         console.log("task form submitted");
+        const inputs = [];
+        for (const input of this.taskFormInputs) {
+            inputs.push(input.value)
+        }
+        this.taskService.createTask(inputs)
+        //rerender tasks in active project display
+        console.log(this.activeProject)
         this.taskModal.close();
     }
 
