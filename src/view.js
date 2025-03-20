@@ -53,7 +53,7 @@ export class View {
         //Checkbox Button
         const checkbox = document.createElement("button");
         checkbox.classList.add("task__checkbox");
-        checkbox.textContent = this.createIcon("M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16", "20px", "20px");
+        checkbox.innerHTML = this.createIcon("M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16", "20px", "20px");
         taskCard.appendChild(checkbox);
 
         //Title
@@ -65,7 +65,7 @@ export class View {
         //Priority
         const priorityBtn = document.createElement("button");
         priorityBtn.classList.add("task__priority");
-        priorityBtn.textContent = this.createIcon("M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z", "16px", "16px");
+        priorityBtn.innerHTML = this.createIcon("M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z", "16px", "16px");
         taskCard.appendChild(priorityBtn);
 
         //Description
@@ -97,5 +97,6 @@ export class View {
         for(const taskCard of taskCards) {
             parent.appendChild(taskCard);
         }
+
     }
 }

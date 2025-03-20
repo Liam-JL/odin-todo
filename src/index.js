@@ -28,6 +28,7 @@ class AppController {
         this.taskFormSubmitBtn = document.getElementById("taskFormSubmitBtn");
         this.taskForm = document.getElementById("taskForm");
         this.taskProjectInput = document.getElementById("taskProjectInput");
+        this.main = document.getElementById("main");
 
         //Event Listeners
         this.addProjectBtn.addEventListener("click", this.onAddProjectBtn.bind(this));
@@ -102,8 +103,16 @@ class AppController {
         }
         this.taskService.createTask(inputs)
 
+        //Rerender cards by active project
         const tasksToRender = taskService.getTasksByProject(this.activeProject);
-        console.log(tasksToRender);
+    
+        const taskCards = [];
+        for (const key of Object.keys(tasksToRender)) {
+            const taskCard = view.createTaskCard(tasksToRender[key])
+            taskCards.push(taskCard);
+        }
+
+        view.renderTaskCards(this.main, taskCards);
 
         this.taskModal.close();
     }
