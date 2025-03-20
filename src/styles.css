@@ -194,7 +194,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.task__due-date {
+.task__due-date, .task__due-time {
   grid-column: 2;
   justify-self: start;
   color: var(--text-secondary);

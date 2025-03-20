@@ -96,14 +96,15 @@ class AppController {
 
     onTaskForm(event) {
         event.preventDefault();
-        console.log("task form submitted");
         const inputs = [];
         for (const input of this.taskFormInputs) {
             inputs.push(input.value)
         }
         this.taskService.createTask(inputs)
-        //rerender tasks in active project display
-        console.log(this.activeProject)
+
+        const tasksToRender = taskService.getTasksByProject(this.activeProject);
+        console.log(tasksToRender);
+
         this.taskModal.close();
     }
 
