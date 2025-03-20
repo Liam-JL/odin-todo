@@ -63,4 +63,21 @@ export class TaskService {
         this.repo.saveTask(task);
         console.log(task)
     }
+
+    getTasks() {
+        return this.repo.tasks;
+    }
+
+    getTasksByProject(projectId) {
+        const tasks = this.repo.tasks;
+        let filteredTasks = {}
+        for(const key of Object.keys(tasks)) {
+            if(tasks[key].projectId === projectId) {
+                filteredTasks[key] = tasks[key];
+            }
+        }
+
+        return filteredTasks;
+
+    }
 }
