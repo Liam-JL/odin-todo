@@ -1,128 +1,88 @@
-import "./styles.css"
-import { ProjectService, ProjectRepository } from "./project_service";
-import { TaskService, TaskRepository } from "./task_service";
-import { View } from "./view";
+import "./style.css"
 
-class AppController {
-    constructor(taskService, projectService, view) {
-        this.taskService = taskService;
-        this.projectService = projectService;
-        this.view = view;
-        this.activeProject = Object.keys(projectService.getProjects())[0];
+const todoForm = document.getElementById("todoForm");
+const todoInput = document.getElementById("todoInput")
+const todoListUL = document.getElementById("todoListUL")
 
-        //Casche DOM
-        this.addProjectBtn = document.getElementById("addProjectBtn");
-        this.priorityProjectsBtn = document.getElementById("priorityProjectsBtn");
-        this.headerAccountMenu = document.getElementById("headerAccountMenu");
-        this.tabBarProjectsBtn = document.getElementById("tabBarProjectsBtn");
-        this.addTaskBtn = document.getElementById("addTaskBtn");
-        this.tabBarSortBtn = document.getElementById("tabBarSortBtn");
-        this.createProjectModal = document.getElementById("createProjectModal");
-        this.projectModalCancelBtn = document.getElementById("projectModalCancelBtn");
-        this.createProjectForm = document.getElementById("createProjectForm");
-        this.projectModalInput = document.getElementById("projectModalInput");
-        this.userProjects = document.getElementById("userProjects");
-        this.taskModal = document.getElementById("taskModal");
-        this.taskModalCloseBtn = document.getElementById("taskModalCloseBtn");
-        this.taskFormInputs = document.querySelectorAll(".task-form__input");
-        this.taskFormSubmitBtn = document.getElementById("taskFormSubmitBtn");
-        this.taskForm = document.getElementById("taskForm");
-        this.taskProjectInput = document.getElementById("taskProjectInput");
-        this.main = document.getElementById("main");
+let allTodos = getTodos();
+updateTodoList();
 
-        //Event Listeners
-        this.addProjectBtn.addEventListener("click", this.onAddProjectBtn.bind(this));
-        this.priorityProjectsBtn.addEventListener("click", this.onPriorityProjectsBtn.bind(this));
-        this.headerAccountMenu.addEventListener("click", this.onHeaderAccountMenu.bind(this));
-        this.tabBarProjectsBtn.addEventListener("click", this.onTabBarProjectsBtn.bind(this));
-        this.addTaskBtn.addEventListener("click", this.onAddTaskBtn.bind(this));
-        this.tabBarSortBtn.addEventListener("click", this.onTabBarSortBtn.bind(this));
-        this.projectModalCancelBtn.addEventListener("click", this.onProjectModalCancelBtn.bind(this));
-        this.createProjectForm.addEventListener("submit", this.onCreateProjectForm.bind(this));
-        this.taskModalCloseBtn.addEventListener("click", this.onTaskModalCloseBtn.bind(this));
-        this.taskForm.addEventListener("submit", this.onTaskForm.bind(this));
+todoForm.addEventListener('submit', function(event){
+    event.preventDefault();
+    addTodo();
+})
+
+function addTodo() {
+    const todoText = todoInput.value.trim();
+    if(todoText.length > 0) {
+        const todoObject = {
+            text: todoText,
+            completed: false
         }
-
-    //Controller methods
-    onAddProjectBtn() {
-        console.log("Add project button clicked")
-        this.createProjectModal.showModal();
+        allTodos.push(todoObject);
+        updateTodoList();
+        saveTodos();
+        todoInput.value = "";
     }
-
-    onPriorityProjectsBtn() {
-        console.log("Priority project button clicked")
-    }
-
-    onHeaderAccountMenu() {
-        console.log("header account button clicked")
-    }
-
-    onTabBarProjectsBtn() {
-        console.log("tab bar projects button clicked")
-    }
-
-    onAddTaskBtn() {
-        console.log("add task button clicked")
-        const projects = this.projectService.getProjects();
-        const projectOptions = [];
-        Object.keys(projects).forEach(key => {
-            const projectTitle = this.projectService.getProjectTitle(key);
-            const projectOption = this.view.createProjectOption(projectTitle, key);
-            projectOptions.push(projectOption);
-        })
-        this.view.renderProjectOptions(this.taskProjectInput, projectOptions);
-        this.taskModal.showModal();
-    }
-
-    onTabBarSortBtn() {
-        console.log("tab bar sort button clicked")
-    }
-
-    onProjectModalCancelBtn() {
-        this.createProjectModal.close();
-    }
-
-    onCreateProjectForm(event) {
-        event.preventDefault();
-        const projectTitle = this.projectModalInput.value;
-        const newProject = this.projectService.createProject(projectTitle);
-        const newBtn = this.view.createProjectBtn(newProject);
-        this.view.renderProjectBtn(this.userProjects, newBtn);
-        this.createProjectModal.close();
-    }
-
-    onTaskModalCloseBtn() {
-        this.taskModal.close();
-    }
-
-    onTaskForm(event) {
-        event.preventDefault();
-        const inputs = [];
-        for (const input of this.taskFormInputs) {
-            inputs.push(input.value)
-        }
-        this.taskService.createTask(inputs)
-
-        //Rerender cards by active project
-        const tasksToRender = taskService.getTasksByProject(this.activeProject);
-    
-        const taskCards = [];
-        for (const key of Object.keys(tasksToRender)) {
-            const taskCard = view.createTaskCard(tasksToRender[key])
-            taskCards.push(taskCard);
-        }
-
-        view.renderTaskCards(this.main, taskCards);
-
-        this.taskModal.close();
-    }
-
-
-
-
 }
 
-const taskService = new TaskService(new TaskRepository());
-const projectService = new ProjectService(new ProjectRepository());
-const view = new View()
-const appController = new AppController(taskService, projectService, view);
+function updateTodoList() {
+    todoListUL.innerHTML = "";
+    allTodos.forEach((todo, todoIndex) => {
+        const todoLi = createTodoLi(todo, todoIndex);
+        todoListUL.append(todoLi);
+    })
+}
+
+function createTodoLi(todo, todoIndex) {
+    const todoId = "todo-"+todoIndex;
+    const todoText = todo.text
+    const todoLi = document.createElement("li");
+    todoLi.className = "todo";
+    todoLi.innerHTML = `
+    <input type="checkbox" id="${todoId}" class="checkbox">
+        <label class="custom-checkbox" for="${todoId}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="transparent">
+                <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
+            </svg>
+        </label>
+        <label for="${todoId}" class="todo-text">
+            ${todoText}
+        </label>
+        <button class="delete-button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--secondary-color)">
+                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+            </svg>
+        </button>
+    `;
+
+    const deleteButton = todoLi.querySelector(".delete-button")
+    deleteButton.addEventListener("click", () => {
+        deleteTodoLi(todoIndex);
+    })
+
+    const checkbox = todoLi.querySelector(".checkbox");
+    checkbox.addEventListener("change", () => {
+        allTodos[todoIndex].completed = checkbox.checked;
+        saveTodos();
+    })
+
+    checkbox.checked = todo.completed;
+    return todoLi;
+}
+
+function saveTodos() {
+    const todosJson = JSON.stringify(allTodos)
+    localStorage.setItem("todos", todosJson)
+}
+
+function getTodos() {
+    const todos = localStorage.getItem("todos") ?? "[]"
+    return JSON.parse(todos)
+}
+
+function deleteTodoLi(todoIndex) {
+    allTodos = allTodos.filter((_, i) => i !== todoIndex);
+    saveTodos();
+    updateTodoList();
+}
