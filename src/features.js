@@ -14,3 +14,9 @@ export function deleteTodo(index) {
     const allTodos = getTodos().filter((_, i) => i !== index);
     saveTodos(allTodos)
 }
+
+export function toggleChecked(index, checkbox) {
+    const allTodos = getTodos();
+    allTodos[index].completed = checkbox.checked;
+    saveTodos(allTodos);
+}
