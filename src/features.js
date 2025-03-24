@@ -11,5 +11,6 @@ export function addTodo(title) {
 }
 
 export function deleteTodo(index) {
-
+    const allTodos = getTodos().filter((_, i) => i !== index);
+    saveTodos(allTodos)
 }

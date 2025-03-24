@@ -1,4 +1,4 @@
-import { addTodo } from "./features";
+import { addTodo, deleteTodo } from "./features";
 import { getTodos, saveTodos } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -61,6 +61,12 @@ function renderTodoItem(todo, index) {
             </svg>
         </button>
     `
+    const deleteButton = todoItem.querySelector(".delete-button");
+    deleteButton.addEventListener("click", () => {
+        deleteTodo(index);
+        renderTodoList();
+    })
+
     return todoItem;
 }
 
