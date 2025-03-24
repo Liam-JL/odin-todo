@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo } from "./features";
+import { addTodo, deleteTodo, toggleChecked } from "./features";
 import { getTodos, saveTodos } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -66,6 +66,12 @@ function renderTodoItem(todo, index) {
         deleteTodo(index);
         renderTodoList();
     })
+
+    const checkbox = todoItem.querySelector(".checkbox");
+    checkbox.addEventListener("change", () => {
+        toggleChecked(index, checkbox);
+    })
+    checkbox.checked = todo.completed;
 
     return todoItem;
 }
