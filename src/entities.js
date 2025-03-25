@@ -1,9 +1,9 @@
 // ─────────────────────────────────────────────────────────
 // ENTITY: Todo
 export class Todo {
-    constructor(title, description, dueDate, projectId) {
+    constructor(title, details= "", dueDate ="", projectId ="") {
         this.title = title;
-        this.description = description;
+        this.details = details;
         this.dueDate = dueDate;
         this.projectId = projectId;
         this.completed = false;
@@ -11,3 +11,9 @@ export class Todo {
     }
 }
 // ─────────────────────────────────────────────────────────
+
+export class Project {
+    constructor(title) {
+        this.title = title;
+    }
+}
