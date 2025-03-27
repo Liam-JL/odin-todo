@@ -18,7 +18,7 @@ export function renderTodoForm () {
             <input id="descriptionInput" class="todo-input todo-input--description" type="text" placeholder="Add description" autocomplete="off">
             <input id="dueDateInput class"todo-input todo-input--date" type="date">
             <select id="projectIdInput class="todo-input todo-input--projects">
-                <option value="inbox">Inbox</option>
+                <option value="12345">Inbox</option>
             </select>
             <button id="todoAddBtn" class="todo-form__add-button">ADD</button>
         </div>
@@ -26,10 +26,11 @@ export function renderTodoForm () {
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const titleInput = form.querySelector("#titleInput");
-        addTodo(titleInput.value);
+        const formInputs = [];
+        form.querySelectorAll("input, select").forEach((input) => formInputs.push(input.value))
+        addTodo(formInputs);
         renderTodoList();
-        titleInput.value = "";
+        form.reset()
         toggleFormVisibility(inputsContainer);
     });
 

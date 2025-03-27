@@ -1,9 +1,9 @@
 import { Todo } from "./entities";
 import { getTodos, saveTodos } from "./shared/lib";
 
-export function addTodo(title) {
-    if(title.length > 0) {
-        const todo = new Todo(title);
+export function addTodo(inputs) {
+    if (inputs[0].length > 0) {
+        const todo = new Todo(...inputs)
         const allTodos = getTodos();
         allTodos.push(todo);
         saveTodos(allTodos);
@@ -26,3 +26,4 @@ export function toggleFormVisibility(inputsContainer) {
     inputsContainer.classList.remove("active") : 
     inputsContainer.classList.add("active");
 }
+
