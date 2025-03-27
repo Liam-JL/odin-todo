@@ -44,8 +44,6 @@ body {
     gap: 10px;
 }
 
-
-
 .todo-form__open-btn {
     box-sizing: border-box;
     padding: 6px 20px;
@@ -60,6 +58,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-bottom: 0.5rem;
 }
 
 .todo-form__open-btn svg {
@@ -71,30 +70,59 @@ body {
 }
 
 .todo-form__inputs-container {
-    display: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 15px;
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0px;
 }
 
-.todo-input {
+.todo-form__inputs-container.active {
+    visibility: visible;
+    transition: max-height 0.5s ease-in-out;
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 1;
+    max-height: 500px;
+}
+
+input, select  {
     caret-color: var(--accent-color);
+    color: var(--text-color);
     font: inherit;
+    background: none;
+    border: 1px solid var(--secondary-color);
+    padding: 0.3rem;
+    border-radius: 4px;
 }
 
-.todo-input:focus{
+input:focus{
     outline: none;
 }
 
+.todo-input--title {
+    grid-column: 1/-1;
+}
 
+.todo-input--description {
+    grid-column: 1/-1;
+}
 
-.add-button {
+::-webkit-calendar-picker-indicator {
     background-color: var(--accent-color);
-    height: 100%;
-    padding: 0 30px;
+}
+
+.todo-form__add-button {
+    background-color: var(--accent-color);
+    padding: 5px 30px;
     border: none;
     border-radius: 40px;
     font: inherit;
     font-weight: 600;
     color: var(--background);
     cursor: pointer;
+    grid-column: 1/-1;
 }
 
 .todo {
