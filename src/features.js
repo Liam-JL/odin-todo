@@ -20,3 +20,9 @@ export function toggleChecked(index, checkbox) {
     allTodos[index].completed = checkbox.checked;
     saveTodos(allTodos);
 }
+
+export function toggleFormVisibility(inputsContainer) {
+    inputsContainer.classList.contains("active") ? 
+    inputsContainer.classList.remove("active") : 
+    inputsContainer.classList.add("active");
+}
