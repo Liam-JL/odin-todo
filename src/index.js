@@ -1,5 +1,7 @@
 import "./shared/style.css"
 import { HomePage } from "./pages"
+import { renderProjectsBar } from "./widgets";
 
 document.getElementById("app");
 app.append(HomePage());
+app.append(renderProjectsBar())

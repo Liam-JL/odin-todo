@@ -1,4 +1,4 @@
-import { Todo } from "./entities";
+import { Todo, Project } from "./entities";
 import { getTodos, saveTodos } from "./shared/lib";
 
 export function addTodo(inputs) {
@@ -26,4 +26,6 @@ export function toggleFormVisibility(inputsContainer) {
     inputsContainer.classList.remove("active") : 
     inputsContainer.classList.add("active");
 }
+
+
 
