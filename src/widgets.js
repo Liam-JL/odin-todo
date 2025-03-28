@@ -48,6 +48,7 @@ export function renderTodoForm () {
 export function renderTodoList() {
     const todoList = document.getElementById("todoList") || document.createElement("ul");
     todoList.id = "todoList";
+    todoList.className = "todo-list";
     todoList.innerHTML = "";
 
     const allTodos = getTodos();
@@ -101,6 +102,7 @@ function renderTodoItem(todo, index) {
 // 📌 WIDGET: Projects bar
 export function renderProjectsBar() {
     const projectBar = document.createElement("aside");
+    projectBar.className = "project-bar"
     projectBar.innerHTML = `
     <button class="project-bar__open-btn">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
