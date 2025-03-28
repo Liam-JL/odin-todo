@@ -1,4 +1,5 @@
 import "./shared/style.css"
+import "./shared/styles/sidebar.css"
 import { HomePage } from "./pages"
 import { renderProjectsBar } from "./widgets";
 

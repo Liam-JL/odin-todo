@@ -1,0 +1,37 @@
+.project-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+    align-items: center;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.project-bar__open-btn svg {
+    fill: var(--accent-color);
+    height: 30px;
+    width: 30px;
+}
+
+.project-bar__open-btn {
+    border: none;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.25));
+    cursor: pointer;
+    position: relative;
+    bottom: 1.5rem;
+}
+
+.project-bar__container {
+    display: none;
+}
+
+.projects-bar__add-btn {
+    display: none;
+}

@@ -125,6 +125,10 @@ input:focus{
     grid-column: 1/-1;
 }
 
+.main {
+    flex-grow: 1;
+}
+
 .todo {
     margin-bottom: 10px;
     padding: 0 16px;
