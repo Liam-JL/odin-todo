@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility } from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar } from "./features";
 import { getTodos, saveTodos } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -104,7 +104,7 @@ export function renderProjectsBar() {
     const projectBar = document.createElement("aside");
     projectBar.className = "project-bar"
     projectBar.innerHTML = `
-    <button class="project-bar__open-btn">
+    <button id="projectsOpenBtn" class="project-bar__open-btn">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
             </svg>
@@ -123,13 +123,17 @@ export function renderProjectsBar() {
                 Inbox
             </button>
         </div>
-        <br>
         <button class="projects-bar__add-btn">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
             </svg> Create new project
         </button>
     `
+
+    const openBtn = projectBar.querySelector("#projectsOpenBtn");
+    openBtn.addEventListener("click", () => {
+        toggleProjectBar(projectBar);
+    })
 
     return projectBar;
 }

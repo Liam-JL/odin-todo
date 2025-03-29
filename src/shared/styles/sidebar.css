@@ -28,6 +28,11 @@
     bottom: 1.5rem;
 }
 
+.project-bar__open-btn:hover svg, .project-bar__open-btn:hover {
+    background-color: var(--accent-color);
+    fill: var(--background);
+}
+
 .project-bar__container {
     display: none;
 }
@@ -35,3 +40,13 @@
 .projects-bar__add-btn {
     display: none;
 }
+
+.project-bar__container.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-bar__add-btn.active {
+    display: block;
+}
+
