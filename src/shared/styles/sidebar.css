@@ -1,10 +1,11 @@
 .project-bar {
     display: flex;
     flex-direction: column;
-    background-color: var(--secondary-color);
+    background-color: var(--sidebar-color);
     align-items: center;
     width: 100%;
     border-radius: 4px;
+    max-height: 50vh;
 }
 
 .project-bar__open-btn svg {
@@ -15,7 +16,7 @@
 
 .project-bar__open-btn {
     border: none;
-    background-color: var(--secondary-color);
+    background-color: var(--sidebar-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,12 +34,56 @@
     fill: var(--background);
 }
 
-.project-bar__container {
-    display: none;
+.project-bar__project-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    height: 30px;
+    font: inherit;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    padding: 25px 5px;
+    margin-bottom: 5px;
 }
 
-.projects-bar__add-btn {
+.project-bar__project-btn span {
+    position: absolute;
+    left: 15%;
+}
+
+.project-bar__project-btn svg {
+    fill: var(--secondary-color);
+}
+
+.project-bar__container {
     display: none;
+    width: 100%;
+    overflow: auto;
+}
+
+.project-bar__container > .project-bar__project-btn {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.project-bar__project-btn:hover {
+    background: fixed;
+    background-color: var(--secondary-color);
+}
+
+.project-bar__project-btn:hover svg{
+    fill: var(--accent-color);
+}
+
+
+.project-bar__project-btn--add {
+    display: none;
+    width: 100%;
+    border-top: 1px solid var(--secondary-color);
+    height: 60px;
 }
 
 .project-bar__container.active {
@@ -46,7 +91,7 @@
     flex-direction: column;
 }
 
-.projects-bar__add-btn.active {
-    display: block;
+.project-bar__project-btn--add.active {
+    display: flex;
 }
 

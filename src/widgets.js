@@ -110,23 +110,24 @@ export function renderProjectsBar() {
             </svg>
         </button>
         <div class="project-bar__container">
-            <button class="project-bar__project">
+            <button class="project-bar__project-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                     <path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/>
                 </svg>
-                Priority
+                <span>Priority</span>
             </button>
-            <button class="project-bar__project">
+            <button class="project-bar__project-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                     <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z"/>
                 </svg>
-                Inbox
+                <span>Inbox</span>
             </button>
+            <button class="project-bar__project-btn"><span>Test Project button</span></button>
         </div>
-        <button class="projects-bar__add-btn">
+        <button class="project-bar__project-btn project-bar__project-btn--add">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
-            </svg> Create new project
+            </svg> <span>Create new project</span>
         </button>
     `
 
