@@ -29,6 +29,7 @@ export function toggleFormVisibility(inputsContainer) {
 
 export function toggleProjectBar(projectBar) {
     const children = projectBar.children;
+    
     if(projectBar.classList.contains("active") === false) {
         projectBar.classList.add("active");
         for (const child of children) {
