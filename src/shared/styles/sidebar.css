@@ -56,12 +56,15 @@
 
 .project-bar__project-btn svg {
     fill: var(--secondary-color);
+    height: 24px;
+    width: 24px
 }
 
 .project-bar__container {
     display: none;
     width: 100%;
     overflow: auto;
+    margin-bottom: 10px;
 }
 
 .project-bar__container > .project-bar__project-btn {
@@ -77,7 +80,6 @@
 .project-bar__project-btn:hover svg{
     fill: var(--accent-color);
 }
-
 
 .project-bar__project-btn--add {
     display: none;
