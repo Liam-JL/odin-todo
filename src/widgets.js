@@ -1,5 +1,5 @@
 import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar } from "./features";
-import { getTodos, saveTodos } from "./shared/lib";
+import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Todo Form
@@ -63,7 +63,7 @@ export function renderTodoList() {
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Todo Item
 function renderTodoItem(todo, index) {
-    const todoId = "todo-"+index;
+    const todoId = "todo-" + index;
     const title = todo.title;
     const todoItem = document.createElement("li");
     todoItem.className = "todo";
@@ -101,28 +101,16 @@ function renderTodoItem(todo, index) {
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Projects bar
 export function renderProjectsBar() {
-    const projectBar = document.createElement("aside");
+    const projectBar = document.getElementById("projectBar") || document.createElement("aside");
     projectBar.className = "project-bar"
+    projectBar.id = "projectBar"
     projectBar.innerHTML = `
-    <button id="projectsOpenBtn" class="project-bar__open-btn">
+        <button id="projectsOpenBtn" class="project-bar__open-btn">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
             </svg>
         </button>
-        <div class="project-bar__container">
-            <button class="project-bar__project-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                    <path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/>
-                </svg>
-                <span>Priority</span>
-            </button>
-            <button class="project-bar__project-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                    <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z"/>
-                </svg>
-                <span>Inbox</span>
-            </button>
-            <button class="project-bar__project-btn"><span>Test Project button</span></button>
+        <div id="projectBtnContainer" class="project-bar__container">
         </div>
         <button class="project-bar__project-btn project-bar__project-btn--add">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
@@ -131,6 +119,14 @@ export function renderProjectsBar() {
         </button>
     `
 
+    const projectBtnContainer = projectBar.querySelector("#projectBtnContainer");
+    const allProjects = getProjects();
+
+    allProjects.forEach((project, index) => {
+        const projectButton = renderProjectButton(project.title, index);
+        projectBtnContainer.append(projectButton);
+    })
+    
     const openBtn = projectBar.querySelector("#projectsOpenBtn");
     openBtn.addEventListener("click", () => {
         toggleProjectBar(projectBar);
@@ -138,4 +134,33 @@ export function renderProjectsBar() {
 
     return projectBar;
 }
+
+// ─────────────────────────────────────────────────────────
+// 📌 WIDGET: Project button
+function renderProjectButton(title, index) {
+    const projectButton = document.createElement("button");
+    const projectId = "project-" + index
+    projectButton.id = projectId;
+    projectButton.className = "project-bar__project-btn"
+    projectButton.innerHTML = `
+        <span>${title}</span>
+    `    
+
+    if (title === "Priority") {
+        projectButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                <path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/>
+            </svg> <span>${title}</span>
+        `
+    } else if(title === "Inbox") {
+        projectButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z"/>
+            </svg> <span>${title}</span> 
+        `
+    }
+
+    return projectButton
+}
+
 

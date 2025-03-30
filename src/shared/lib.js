@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────
-// LIB: Storage
+// LIB: Todo Storage
 export function saveTodos(allTodos) {
     const todosJson = JSON.stringify(allTodos)
     localStorage.setItem("todos", todosJson)
@@ -11,3 +11,14 @@ export function getTodos() {
 }
 
 // ─────────────────────────────────────────────────────────
+// LIB: Project Storage
+export function saveProjects(allProjects) {
+    const projectsJson = JSON.stringify(allProjects);
+    localStorage.setItem("projects", projectsJson);
+}
+
+export function getProjects() {
+    const projects = localStorage.getItem("projects") ?? '[{"title": "Priority"}, {"title": "Inbox"}]';
+    return JSON.parse(projects)
+}
+
