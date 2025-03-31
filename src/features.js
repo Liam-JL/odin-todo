@@ -43,6 +43,11 @@ export function toggleProjectBar(projectBar) {
     }
 }
 
+export function openProjectModal() {
+    const modal = document.getElementById("createProjectModal");
+    modal.showModal();
+}
+
 export function addProject(title) {
     if(title.length > 0) {
         const project = new Project(title);

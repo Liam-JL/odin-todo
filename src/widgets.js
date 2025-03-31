@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject } from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, openProjectModal, addProject } from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -112,7 +112,7 @@ export function renderProjectsBar() {
         </button>
         <div id="projectBtnContainer" class="project-bar__container">
         </div>
-        <button class="project-bar__project-btn project-bar__project-btn--add">
+        <button id="createProjectBtn" class="project-bar__project-btn project-bar__project-btn--add">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
             </svg> <span>Create new project</span>
@@ -134,6 +134,11 @@ export function renderProjectsBar() {
     const openBtn = projectBar.querySelector("#projectsOpenBtn");
     openBtn.addEventListener("click", () => {
         toggleProjectBar(projectBar);
+    })
+
+    const createProjectBtn = projectBar.querySelector("#createProjectBtn");
+    createProjectBtn.addEventListener("click", () => {
+        openProjectModal();
     })
 
     return projectBar;
