@@ -18,7 +18,7 @@ export function saveProjects(allProjects) {
 }
 
 export function getProjects() {
-    const projects = localStorage.getItem("projects") ?? '[{"title": "Priority"}, {"title": "Inbox"}]';
+    const projects = localStorage.getItem("projects") ?? '[]'; //{"title": "Priority"}, {"title": "Inbox"}
     return JSON.parse(projects)
 }
 

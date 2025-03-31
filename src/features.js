@@ -1,5 +1,5 @@
 import { Todo, Project } from "./entities";
-import { getTodos, saveTodos } from "./shared/lib";
+import { getProjects, getTodos, saveProjects, saveTodos } from "./shared/lib";
 
 export function addTodo(inputs) {
     if (inputs[0].length > 0) {
@@ -40,6 +40,15 @@ export function toggleProjectBar(projectBar) {
         for (const child of children) {
             child.classList.remove("active");
         }
+    }
+}
+
+export function addProject(title) {
+    if(title.length > 0) {
+        const project = new Project(title);
+        const allProjects = getProjects();
+        allProjects.push(project);
+        saveProjects(allProjects);
     }
 }
 

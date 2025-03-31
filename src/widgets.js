@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar } from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject } from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -121,6 +121,10 @@ export function renderProjectsBar() {
 
     const projectBtnContainer = projectBar.querySelector("#projectBtnContainer");
     const allProjects = getProjects();
+    if (allProjects.length === 0) {
+        const priority = addProject("Priority")
+        const Inbox = addProject("Inbox")
+    }
 
     allProjects.forEach((project, index) => {
         const projectButton = renderProjectButton(project.title, index);
