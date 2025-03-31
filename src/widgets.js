@@ -173,4 +173,21 @@ function renderProjectButton(title, index) {
     return projectButton
 }
 
+// ─────────────────────────────────────────────────────────
+// 📌 WIDGET: Project Modal
+export function renderProjectModal() {
+    const modal = document.createElement("dialog");
+    modal.id = "createProjectModal";
+    modal.className = "create-project-modal";
+    modal.innerHTML = `
+        <form id="createProjectForm" class="create-project-form" method="modal">
+            <h2 class="create-project-modal__header">Create new project</h2>
+            <input name="create-project" id="projectModalInput" type="text" class="create-project-modal__input" placeholder="Enter name" autocomplete="off">
+            <button type="button" id="projectModalCancelBtn" class="create-project-modal__btn create-project-modal__btn--cancel">Cancel</button>
+            <button type="submit" id="projectModalDoneBtn" class="create-project-modal__btn create-project-modal__btn--submit">Done</button>
+        </form>
+    `
+    return modal
+}
+
 
