@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, openProjectModal, addProject } from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, toggleProjectModal, addProject } from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -138,7 +138,7 @@ export function renderProjectsBar() {
 
     const createProjectBtn = projectBar.querySelector("#createProjectBtn");
     createProjectBtn.addEventListener("click", () => {
-        openProjectModal();
+        toggleProjectModal();
     })
 
     return projectBar;
@@ -192,6 +192,12 @@ export function renderProjectModal() {
             <button type="submit" id="projectModalDoneBtn" class="create-project-modal__btn create-project-modal__btn--submit">Done</button>
         </form>
     `
+
+    const cancelBtn = modal.querySelector("#projectModalCancelBtn")
+    cancelBtn.addEventListener("click", () => {
+        toggleProjectModal();
+    } )
+
     return modal
 }
 
