@@ -198,6 +198,15 @@ export function renderProjectModal() {
         toggleProjectModal();
     } )
 
+    const projectForm = modal.querySelector("#createProjectForm");
+    projectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const titleInput = projectForm.querySelector("#projectModalInput");
+        addProject(titleInput.value);
+        renderProjectsBar();
+        toggleProjectModal();
+    })
+    
     return modal
 }
 
