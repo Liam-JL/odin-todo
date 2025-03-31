@@ -194,6 +194,10 @@ input:focus{
     display: none;
 }
 
+::placeholder{
+    color: var(--secondary-color);
+  }
+
 
 
 

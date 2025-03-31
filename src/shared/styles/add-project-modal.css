@@ -1,0 +1,56 @@
+.create-project-modal {
+    margin: auto; 
+    border: 0;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+    border-radius: 10px;
+    padding: 2rem;
+    row-gap: 1rem;
+    width: 80%;
+    max-width: 400px;
+    background-color: var(--sidebar-color);
+}
+
+.create-project-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    row-gap: 1rem;
+  }
+
+.create-project-modal__header {
+    grid-column: 1/-1;
+    color: var(--text-color);
+    font: inherit;
+  }
+  
+.create-project-modal__input {
+    grid-column: 1/-1;
+    padding: 0.6rem;
+    border-radius: 4px;
+    background: none;
+    color: var(--text-color);
+  }
+  
+.create-project-modal__input:focus {
+    border-bottom: solid 3px var(--accent-color);
+  }
+  
+.create-project-modal__btn--cancel {
+    grid-column: 2;
+  }
+  
+.create-project-modal__btn--submit {
+    grid-column: 3;
+  }
+
+.create-project-modal__btn {
+    color: var(--accent-color);
+    background: none;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+}
+  
+.create-project-modal__btn:hover{
+    background-color: var(--secondary-color);
+  }
