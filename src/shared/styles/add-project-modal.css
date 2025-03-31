@@ -10,6 +10,10 @@
     background-color: var(--sidebar-color);
 }
 
+.create-project-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .create-project-form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
