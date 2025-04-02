@@ -43,9 +43,7 @@ export function toggleProjectBar(projectBar) {
     }
 }
 
-export function toggleProjectModal() {
-    const modal = document.getElementById("createProjectModal");
-    
+export function toggleProjectModal(modal) {
     if(modal.hasAttribute("open")) {
         modal.close();
     } else {
@@ -61,4 +59,5 @@ export function addProject(title) {
         saveProjects(allProjects);
     }
 }
+
 

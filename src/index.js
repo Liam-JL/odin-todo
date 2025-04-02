@@ -8,4 +8,3 @@ document.getElementById("app");
 app.append(HomePage());
 app.append(renderProjectsBar());
 app.append(renderProjectModal());
-

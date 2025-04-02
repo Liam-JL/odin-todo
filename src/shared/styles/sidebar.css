@@ -75,10 +75,12 @@
 .project-bar__project-btn:hover {
     background: fixed;
     background-color: var(--secondary-color);
+    transition: 200ms ease;
 }
 
 .project-bar__project-btn:hover svg{
     fill: var(--accent-color);
+    transition: 200ms ease;
 }
 
 .project-bar__project-btn--add {
@@ -96,4 +98,28 @@
 .project-bar__project-btn--add.active {
     display: flex;
 }
+
+.edit-button {
+    padding: 3px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit-button:hover > svg {
+    background-color: var(--accent-color);
+    fill: var(--background);
+    transition: 200ms ease;
+}
+
+.edit-button:hover {
+    background-color: var(--accent-color);
+    transition: 200ms ease;
+}
+
+
 

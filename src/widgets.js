@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, toggleProjectModal, addProject } from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, toggleProjectModal, addProject} from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -138,7 +138,8 @@ export function renderProjectsBar() {
 
     const createProjectBtn = projectBar.querySelector("#createProjectBtn");
     createProjectBtn.addEventListener("click", () => {
-        toggleProjectModal();
+        const modal = renderProjectModal()
+        toggleProjectModal(modal);
     })
 
     return projectBar;
@@ -166,13 +167,18 @@ function renderProjectButton(title, index) {
         `
     } else {
         projectButton.innerHTML = `
-            <button class="delete-button">
+            <button id="editBtn" class="edit-button">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--secondary-color)">
                     <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/>
                 </svg> 
             </button>
         <span>${title}</span>
         `
+        const editBtn = projectButton.querySelector("#editBtn");
+        editBtn.addEventListener("click", () => {
+            console.log("edit button clicked")
+        })
+
     }
 
     return projectButton
@@ -181,7 +187,14 @@ function renderProjectButton(title, index) {
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Project Modal
 export function renderProjectModal() {
-    const modal = document.createElement("dialog");
+    let modal = document.getElementById("createProjectModal");
+
+    if (modal) {
+        modal.querySelector("#createProjectForm").reset()
+        return modal; // If it already exists, return the existing modal
+    }
+
+    modal = document.createElement("dialog");
     modal.id = "createProjectModal";
     modal.className = "create-project-modal";
     modal.innerHTML = `
@@ -193,9 +206,11 @@ export function renderProjectModal() {
         </form>
     `
 
+   document.getElementById("app").append(modal);
+
     const cancelBtn = modal.querySelector("#projectModalCancelBtn")
     cancelBtn.addEventListener("click", () => {
-        toggleProjectModal();
+        toggleProjectModal(modal);
     } )
 
     const projectForm = modal.querySelector("#createProjectForm");
@@ -204,10 +219,10 @@ export function renderProjectModal() {
         const titleInput = projectForm.querySelector("#projectModalInput");
         addProject(titleInput.value);
         renderProjectsBar();
-        toggleProjectModal();
+        toggleProjectModal(modal);
     })
-    
-    return modal
+
+    return modal 
 }
 
 
