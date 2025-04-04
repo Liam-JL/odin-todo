@@ -60,6 +60,11 @@
     width: 24px
 }
 
+.delete-button--projects {
+    position: absolute;
+    right: 10%;
+}
+
 .project-bar__container {
     display: none;
     width: 100%;
@@ -119,6 +124,14 @@
 .edit-button:hover {
     background-color: var(--accent-color);
     transition: 200ms ease;
+}
+
+.delete-button svg {
+    transition: 200ms ease;
+}
+
+.delete-button:hover svg {
+    fill: red;
 }
 
 
