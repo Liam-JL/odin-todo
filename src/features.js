@@ -52,4 +52,9 @@ export function addProject(title) {
     }
 }
 
+export function deleteProject(index) {
+    const allProjects  = getProjects().filter((_, i) => i !== index);
+    saveProjects(allProjects);
+}
+
 

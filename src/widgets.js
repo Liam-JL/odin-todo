@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject} from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject, deleteProject} from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -173,11 +173,22 @@ function renderProjectButton(title, index) {
                 </svg> 
             </button>
         <span>${title}</span>
+            <button id="deleteProjectBtn" class="delete-button delete-button--projects">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--secondary-color)">
+                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                </svg> 
+            </button>
         `
         const editBtn = projectButton.querySelector("#editBtn");
         editBtn.addEventListener("click", () => {
             const modal = renderRenameProjectModal(title, index);
             modal.showModal();
+        })
+
+        const deleteBtn = projectButton.querySelector("#deleteProjectBtn");
+        deleteBtn.addEventListener("click", () => {
+            deleteProject(index)
+            renderProjectsBar()
         })
 
     }
@@ -237,7 +248,6 @@ export function renderRenameProjectModal(title, index) {
         <button type="submit" id="renameProjectModalDoneBtn" class="create-project-modal__btn create-project-modal__btn--submit">Done</button>
     </form>
     `
-
 
    document.getElementById("app").append(modal);
 
