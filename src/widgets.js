@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, toggleProjectModal, addProject} from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject} from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 
 // ─────────────────────────────────────────────────────────
@@ -139,7 +139,7 @@ export function renderProjectsBar() {
     const createProjectBtn = projectBar.querySelector("#createProjectBtn");
     createProjectBtn.addEventListener("click", () => {
         const modal = renderProjectModal()
-        toggleProjectModal(modal);
+        modal.showModal();
     })
 
     return projectBar;
@@ -176,7 +176,8 @@ function renderProjectButton(title, index) {
         `
         const editBtn = projectButton.querySelector("#editBtn");
         editBtn.addEventListener("click", () => {
-            console.log("edit button clicked")
+            const modal = renderRenameProjectModal(title, index);
+            modal.showModal();
         })
 
     }
@@ -187,14 +188,10 @@ function renderProjectButton(title, index) {
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Project Modal
 export function renderProjectModal() {
-    let modal = document.getElementById("createProjectModal");
+    let modal = document.getElementById("createProjectModal") || document.createElement("dialog");
 
-    if (modal) {
-        modal.querySelector("#createProjectForm").reset()
-        return modal; // If it already exists, return the existing modal
-    }
+    modal.querySelector("#createProjectForm").reset()
 
-    modal = document.createElement("dialog");
     modal.id = "createProjectModal";
     modal.className = "create-project-modal";
     modal.innerHTML = `
@@ -210,7 +207,7 @@ export function renderProjectModal() {
 
     const cancelBtn = modal.querySelector("#projectModalCancelBtn")
     cancelBtn.addEventListener("click", () => {
-        toggleProjectModal(modal);
+        modal.close()
     } )
 
     const projectForm = modal.querySelector("#createProjectForm");
@@ -219,7 +216,45 @@ export function renderProjectModal() {
         const titleInput = projectForm.querySelector("#projectModalInput");
         addProject(titleInput.value);
         renderProjectsBar();
-        toggleProjectModal(modal);
+        modal.close();
+    })
+
+    return modal 
+}
+
+// ─────────────────────────────────────────────────────────
+// 📌 WIDGET: Rename Project Modal
+export function renderRenameProjectModal(title, index) {
+    let modal = document.getElementById("renameProjectModal") || document.createElement("dialog");
+
+    modal.id = "renameProjectModal";
+    modal.className = "create-project-modal";
+    modal.innerHTML = `
+    <form id="renameProjectForm" class="create-project-form" method="modal">
+        <h2 class="create-project-modal__header">Rename project</h2>
+        <input name="rename-project" id="renameProjectModalInput" type="text" class="create-project-modal__input" placeholder="${title}" autocomplete="off">
+        <button type="button" id="renameProjectModalCancelBtn" class="create-project-modal__btn create-project-modal__btn--cancel">Cancel</button>
+        <button type="submit" id="renameProjectModalDoneBtn" class="create-project-modal__btn create-project-modal__btn--submit">Done</button>
+    </form>
+    `
+
+
+   document.getElementById("app").append(modal);
+
+    const cancelBtn = modal.querySelector("#renameProjectModalCancelBtn")
+    cancelBtn.addEventListener("click", () => {
+        modal.close();
+    } )
+
+    const projectForm = modal.querySelector("#renameProjectForm");
+    projectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const allProjects = getProjects();
+        const renamedTitle = projectForm.querySelector("#renameProjectModalInput").value;
+        allProjects[index].title = renamedTitle;
+        saveProjects(allProjects);
+        renderProjectsBar();
+        modal.close();
     })
 
     return modal 
