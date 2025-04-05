@@ -72,7 +72,17 @@
     margin-bottom: 10px;
 }
 
-.project-bar__container > .project-bar__project-btn {
+.project-bar__container.active {
+    display: block;
+}
+
+.project-bar__btn-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-bar__btn-container > .project-bar__project-btn {
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
 }
@@ -88,20 +98,16 @@
     transition: 200ms ease;
 }
 
+.project-bar__project-btn.active {
+    border: 1px solid var(--accent-color);
+    background-color: var(--primary-color);
+}
+
+
 .project-bar__project-btn--add {
-    display: none;
     width: 100%;
     border-top: 1px solid var(--secondary-color);
     height: 60px;
-}
-
-.project-bar__container.active {
-    display: flex;
-    flex-direction: column;
-}
-
-.project-bar__project-btn--add.active {
-    display: flex;
 }
 
 .edit-button {

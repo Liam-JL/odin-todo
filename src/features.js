@@ -21,26 +21,10 @@ export function toggleChecked(index, checkbox) {
     saveTodos(allTodos);
 }
 
-export function toggleFormVisibility(inputsContainer) {
-    inputsContainer.classList.contains("active") ? 
-    inputsContainer.classList.remove("active") : 
-    inputsContainer.classList.add("active");
-}
-
-export function toggleProjectBar(projectBar) {
-    const children = projectBar.children;
-    
-    if(projectBar.classList.contains("active") === false) {
-        projectBar.classList.add("active");
-        for (const child of children) {
-            child.classList.add("active");
-        }
-    } else {
-        projectBar.classList.remove("active");
-        for (const child of children) {
-            child.classList.remove("active");
-        }
-    }
+export function toggleElementVisibility(element) {
+    element.classList.contains("active") ? 
+    element.classList.remove("active") : 
+    element.classList.add("active");
 }
 
 export function addProject(title) {
