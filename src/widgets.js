@@ -1,5 +1,6 @@
-import { addTodo, deleteTodo, toggleChecked, toggleFormVisibility, toggleProjectBar, addProject, deleteProject} from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleElementVisibility, addProject, deleteProject} from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
+import { setCurrentProject, getCurrentProject } from "./shared/project_state-manager";
 
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Todo Form
@@ -31,13 +32,13 @@ export function renderTodoForm () {
         addTodo(formInputs);
         renderTodoList();
         form.reset()
-        toggleFormVisibility(inputsContainer);
+        toggleElementVisibility(inputsContainer);
     });
 
     const openFormBtn = form.querySelector("#openFormBtn");
     const inputsContainer = form.querySelector("#inputsContainer")
     openFormBtn.addEventListener("click", () => {
-        toggleFormVisibility(inputsContainer);
+        toggleElementVisibility(inputsContainer);
     })
 
     return form
@@ -110,13 +111,15 @@ export function renderProjectsBar() {
                 <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
             </svg>
         </button>
-        <div id="projectBtnContainer" class="project-bar__container">
+        <div id="projectBarContainer" class="project-bar__container">
+            <div id="projectBtnContainer" class="project-bar__btn-container">
+            </div>
+            <button id="createProjectBtn" class="project-bar__project-btn project-bar__project-btn--add">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                </svg> <span>Create new project</span>
+            </button>
         </div>
-        <button id="createProjectBtn" class="project-bar__project-btn project-bar__project-btn--add">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
-            </svg> <span>Create new project</span>
-        </button>
     `
 
     const projectBtnContainer = projectBar.querySelector("#projectBtnContainer");
@@ -133,7 +136,7 @@ export function renderProjectsBar() {
     
     const openBtn = projectBar.querySelector("#projectsOpenBtn");
     openBtn.addEventListener("click", () => {
-        toggleProjectBar(projectBar);
+        toggleElementVisibility(projectBar.querySelector("#projectBarContainer"));
     })
 
     const createProjectBtn = projectBar.querySelector("#createProjectBtn");
@@ -193,6 +196,16 @@ function renderProjectButton(title, index) {
 
     }
 
+    //Set active project to active style
+    // if(getCurrentProject().id === getProjects[index].id) {
+    //     projectButton.classList.add("active");
+    // }
+
+    projectButton.addEventListener("click", () => {
+        setCurrentProject(getProjects[index]);
+        renderProjectsBar()
+    })
+
     return projectButton
 }
 
@@ -200,9 +213,7 @@ function renderProjectButton(title, index) {
 // 📌 WIDGET: Project Modal
 export function renderProjectModal() {
     let modal = document.getElementById("createProjectModal") || document.createElement("dialog");
-
-    modal.querySelector("#createProjectForm").reset()
-
+    
     modal.id = "createProjectModal";
     modal.className = "create-project-modal";
     modal.innerHTML = `
@@ -213,8 +224,9 @@ export function renderProjectModal() {
             <button type="submit" id="projectModalDoneBtn" class="create-project-modal__btn create-project-modal__btn--submit">Done</button>
         </form>
     `
+    modal.querySelector("#createProjectForm").reset()
 
-   document.getElementById("app").append(modal);
+    document.getElementById("app").append(modal);
 
     const cancelBtn = modal.querySelector("#projectModalCancelBtn")
     cancelBtn.addEventListener("click", () => {

@@ -1,10 +1,10 @@
 let currentProject = '';
 
-function getCurrentProject(currentProject) {
+export function getCurrentProject(currentProject) {
     return currentProject
 }
 
-function setCurrentProject(project) {
+export function setCurrentProject(project) {
     currentProject = project
 }
 
