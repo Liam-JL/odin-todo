@@ -41,7 +41,9 @@ export function renderTodoForm () {
         //Add options to form select from list of available projects
         const select = form.querySelector("#projectIdInput");
         select.innerHTML = ''
-        for(const project of getProjects()) {
+        const allProjects = getProjects();
+        allProjects.shift()
+        for(const project of allProjects) {
             const option = document.createElement("option");
             option.setAttribute("value", project.id);
             option.textContent = project.title
