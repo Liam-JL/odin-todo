@@ -1,5 +1,6 @@
 import { Todo, Project } from "./entities";
 import { getProjects, getTodos, saveProjects, saveTodos } from "./shared/lib";
+import { getCurrentProject } from "./shared/project_state-manager";
 
 export function addTodo(inputs) {
     if (inputs[0].length > 0) {
@@ -12,6 +13,7 @@ export function addTodo(inputs) {
 
 export function deleteTodo(index) {
     const allTodos = getTodos().filter((_, i) => i !== index);
+    // const allTodos = getTodos().filter((todo) => todo.projectId === getCurrentProject().id)
     saveTodos(allTodos)
 }
 
