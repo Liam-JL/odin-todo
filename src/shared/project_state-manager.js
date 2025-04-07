@@ -1,6 +1,6 @@
 let currentProject = '';
 
-export function getCurrentProject(currentProject) {
+export function getCurrentProject() {
     return currentProject
 }
 

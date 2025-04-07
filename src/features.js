@@ -41,4 +41,10 @@ export function deleteProject(index) {
     saveProjects(allProjects);
 }
 
+export function removeActiveProjectStyling(projectBtn) {
+    projectBtn.classList.remove("active")
+}
 
+export function addActiveProjectStyling(projectBtn) {
+    projectBtn.classList.add("active")
+}

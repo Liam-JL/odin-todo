@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, toggleElementVisibility, addProject, deleteProject} from "./features";
+import { addTodo, deleteTodo, toggleChecked, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling} from "./features";
 import { getTodos, getProjects, saveProjects } from "./shared/lib";
 import { setCurrentProject, getCurrentProject } from "./shared/project_state-manager";
 
@@ -129,8 +129,21 @@ export function renderProjectsBar() {
         const Inbox = addProject("Inbox")
     }
 
+    //Set current project to inbox by default
+    if (!getCurrentProject()) {
+        setCurrentProject(allProjects[1])
+    } 
+   
     allProjects.forEach((project, index) => {
         const projectButton = renderProjectButton(project.title, index);
+
+        //highlight active project button
+        if(project.id !== getCurrentProject().id) {
+            removeActiveProjectStyling(projectButton);
+        } else if (project.id === getCurrentProject().id) {
+            addActiveProjectStyling(projectButton)
+        }
+
         projectBtnContainer.append(projectButton);
     })
     
@@ -196,13 +209,8 @@ function renderProjectButton(title, index) {
 
     }
 
-    //Set active project to active style
-    // if(getCurrentProject().id === getProjects[index].id) {
-    //     projectButton.classList.add("active");
-    // }
-
     projectButton.addEventListener("click", () => {
-        setCurrentProject(getProjects[index]);
+        setCurrentProject(getProjects()[index]);
         renderProjectsBar()
     })
 
