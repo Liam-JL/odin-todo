@@ -102,6 +102,10 @@ input:focus{
     outline: none;
 }
 
+select * {
+    background-color: var(--background);
+}
+
 .todo-input--title {
     grid-column: 1/-1;
 }
