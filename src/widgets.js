@@ -18,12 +18,12 @@ export function renderTodoForm () {
             <input id="titleInput" class="todo-input todo-input--title" type="text" placeholder="Add title" autocomplete="off">
             <input id="descriptionInput" class="todo-input todo-input--description" type="text" placeholder="Add description" autocomplete="off">
             <input id="dueDateInput class"todo-input todo-input--date" type="date">
-            <select id="projectIdInput class="todo-input todo-input--projects">
-                <option value="12345">Inbox</option>
+            <select id="projectIdInput" class="todo-input todo-input--projects">
             </select>
             <button id="todoAddBtn" class="todo-form__add-button">ADD</button>
         </div>
     `
+
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -38,6 +38,16 @@ export function renderTodoForm () {
     const openFormBtn = form.querySelector("#openFormBtn");
     const inputsContainer = form.querySelector("#inputsContainer")
     openFormBtn.addEventListener("click", () => {
+        //Add options to form select from list of available projects
+        const select = form.querySelector("#projectIdInput");
+        select.innerHTML = ''
+        for(const project of getProjects()) {
+            const option = document.createElement("option");
+            option.setAttribute("value", project.id);
+            option.textContent = project.title
+            select.append(option)
+        }
+
         toggleElementVisibility(inputsContainer);
     })
 
