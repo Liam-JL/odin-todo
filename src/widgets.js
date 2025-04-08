@@ -28,7 +28,6 @@ export function renderProjectsBar() {
     const projectBtnContainer = projectBar.querySelector("#projectBtnContainer");
     const allProjects = getProjects();
     if (allProjects.length === 0) {
-        const priority = addProject("Priority")
         const Inbox = addProject("Inbox")
     }
 
@@ -44,6 +43,8 @@ export function renderProjectsBar() {
 
         projectBtnContainer.append(projectButton);
     })
+
+    projectBtnContainer.prepend(renderPriorityButton())
     
     const openBtn = projectBar.querySelector("#projectsOpenBtn");
     openBtn.addEventListener("click", () => {
@@ -58,6 +59,34 @@ export function renderProjectsBar() {
 
     return projectBar;
 }
+// ─────────────────────────────────────────────────────────
+// 📌 WIDGET: Prirotiy button
+function renderPriorityButton() {
+    const button = document.createElement("button");
+    button.className = "project-bar__project-btn";
+    button.classList.add("project-bar__project-btn--priority")
+    button.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+        <path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/>
+    </svg> <span>Priority</span>
+    `
+
+    button.addEventListener("click", () => {
+        const todoItems = document.getElementById("todoList").childNodes;
+        todoItems.forEach((item) => {
+            item.classList.contains("priority") ? 
+            item.style.display = "flex" :
+            item.style.display = "none";
+        })
+        setCurrentProject('')
+        toggleElementVisibility(document.getElementById("projectBarContainer"))
+        renderProjectsBar()
+
+    })
+
+    return button
+}
+
 
 // ─────────────────────────────────────────────────────────
 // 📌 WIDGET: Project button
@@ -67,13 +96,7 @@ function renderProjectButton(title, index) {
     projectButton.id = projectId;
     projectButton.className = "project-bar__project-btn"
 
-    if (title === "Priority") {
-        projectButton.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                <path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/>
-            </svg> <span>${title}</span>
-        `
-    } else if(title === "Inbox") {
+    if(title === "Inbox") {
         projectButton.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z"/>
@@ -254,9 +277,7 @@ export function renderTodoList() {
     const allTodos = getTodos();
     allTodos.forEach((todo, index) => {
         const todoItem = renderTodoItem(todo, index);
-        console.log(todo.projectId)
-        console.log(getCurrentProject().id)
-        console.log(todo.projectId === getCurrentProject().id)
+
         if (todo.projectId !== getCurrentProject().id){
             todoItem.style.display = "none"
         } else {

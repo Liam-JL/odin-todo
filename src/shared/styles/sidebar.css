@@ -140,5 +140,13 @@
     fill: red;
 }
 
+.project-bar__project-btn--priority:hover svg {
+    fill: var(--priority-color)
+}
+
+.project-bar__project-btn--priority svg {
+    transition: 200ms ease;
+}
+
 
 
