@@ -1,3 +1,4 @@
+import { getCurrentProject } from "./project_state-manager"
 // ─────────────────────────────────────────────────────────
 // LIB: Todo Storage
 export function saveTodos(allTodos) {
@@ -21,4 +22,13 @@ export function getProjects() {
     const projects = localStorage.getItem("projects") ?? '[]'; //{"title": "Priority"}, {"title": "Inbox"}
     return JSON.parse(projects)
 }
+
+export function getCurrentTodos() {
+    for(const project of getProjects()){
+        if(project.id === getCurrentProject().id){
+            return project.todos;
+        }
+    }
+}
+
 
