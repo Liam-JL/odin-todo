@@ -5,6 +5,7 @@
     --accent-color: #00FFC4;
     --text-color: #F9F9F9;
     --sidebar-color: #18191D;
+    --priority-color: #FF8A00;
 }
 
 * {
@@ -150,7 +151,7 @@ select * {
     transition: 200ms ease;
 }
 
-.delete-button {
+.delete-button, .priority-button {
     padding: 3px;
     background: none;
     border: none;
@@ -166,6 +167,26 @@ select * {
 
 .delete-button:hover svg {
     fill: red;
+}
+
+.priority-button svg {
+    fill: var(--secondary-color)
+}
+
+.priority-button:hover svg {
+    fill: var(--accent-color);
+}
+
+.priority-button svg {
+    transition: 200ms ease;
+}
+
+.priority {
+    border: 1px solid var(--priority-color);
+}
+
+.priority .priority-button svg {
+    fill: var(--priority-color);
 }
 
 .custom-checkbox {

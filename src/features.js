@@ -23,6 +23,12 @@ export function toggleChecked(index, checkbox) {
     saveTodos(allTodos);
 }
 
+export function togglePriority(index) {
+    const allTodos = getTodos();
+    allTodos[index].priority = !allTodos[index].priority;
+    saveTodos(allTodos)
+}
+
 export function toggleElementVisibility(element) {
     element.classList.contains("active") ? 
     element.classList.remove("active") : 
