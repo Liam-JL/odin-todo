@@ -8,7 +8,7 @@ import { getProjects } from "./shared/lib";
 
 //Set inbox as default project when app starts
 if(!getCurrentProject()){
-    setCurrentProject(getProjects()[1])
+    setCurrentProject(getProjects()[0])
 }
 
 document.getElementById("app");

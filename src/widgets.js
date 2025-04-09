@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, togglePriority, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling} from "./features";
+import { addTodo, deleteTodo, toggleChecked, togglePriority, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling, renderTodoViewState} from "./features";
 import { getTodos, getProjects, saveProjects, getCurrentTodos } from "./shared/lib";
 import { setCurrentProject, getCurrentProject } from "./shared/project_state-manager";
 
@@ -75,7 +75,7 @@ function renderPriorityButton() {
         const todoItems = document.getElementById("todoList").childNodes;
         todoItems.forEach((item) => {
             item.classList.contains("priority") ? 
-            item.style.display = "flex" :
+            item.style.display = "grid" :
             item.style.display = "none";
         })
         setCurrentProject('')
@@ -252,7 +252,6 @@ export function renderTodoForm () {
         const select = form.querySelector("#projectIdInput");
         select.innerHTML = ''
         const allProjects = getProjects();
-        allProjects.shift()
         for(const project of allProjects) {
             const option = document.createElement("option");
             option.setAttribute("value", project.id);
@@ -281,7 +280,7 @@ export function renderTodoList() {
         if (todo.projectId !== getCurrentProject().id){
             todoItem.style.display = "none"
         } else {
-            todoItem.style.display = "flex"
+            todoItem.style.display = "grid"
         }
         todoList.append(todoItem);
     })
@@ -296,25 +295,8 @@ function renderTodoItem(todo, index) {
     const title = todo.title;
     const todoItem = document.createElement("li");
     todoItem.className = "todo";
-    todoItem.innerHTML = `
-     <input type="checkbox" id="${todoId}" class="checkbox">
-        <label class="custom-checkbox" for="${todoId}">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="transparent">
-                <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
-            </svg>
-        </label>
-        <label for="${todoId}" class="todo-text">
-            ${title}
-        </label>
-        <button class="priority-button">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z"/></svg>
-        </button>
-        <button class="delete-button">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--secondary-color)">
-                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-            </svg>
-        </button>
-    `
+
+    renderTodoViewState(todoItem, todo, todoId);
 
     //Is todo priority?
     if(todo.priority) {
@@ -337,6 +319,14 @@ function renderTodoItem(todo, index) {
     priorityButton.addEventListener("click", () => {
         togglePriority(index);
         renderTodoList();
+    })
+
+    const todoText = todoItem.querySelector(".todo-text");
+    todoText.addEventListener("click", () => {
+        console.log("todo item clicked")
+        //change todo item to edit state
+        //edit state vs view state
+        //click anywhere else on page returns to view state
     })
 
     return todoItem;
