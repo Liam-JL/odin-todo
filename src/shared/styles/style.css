@@ -137,17 +137,18 @@ select * {
 
 .todo {
     margin-bottom: 10px;
-    padding: 0 16px;
+    padding: 5px 16px;
     background-color: var(--primary-color);
     border-radius: 15px;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
+    row-gap: 0.2rem;
 }
 
 .todo-text {
-    padding: 15px;
+    padding-left: 15px;
     padding-right: 0;
-    flex-grow: 1;
     transition: 200ms ease;
 }
 
@@ -219,11 +220,26 @@ select * {
     display: none;
 }
 
+.todo-description {
+    grid-column: 2;
+    font-size: medium;
+    padding-left: 15px;
+}
+
+.todo-duedate {
+    grid-column: 2;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: medium;
+    border: 1px solid var(--text-color);
+    justify-self: start;
+    padding: 0.2rem 0.5rem;
+    border-radius: 40px;
+}
+
 ::placeholder{
     color: var(--secondary-color);
   }
-
-
 
 
 @media(max-width: 500px){
