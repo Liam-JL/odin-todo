@@ -1,6 +1,6 @@
 import { Todo, Project } from "./entities";
 import { getProjects, getTodos, saveProjects, saveTodos } from "./shared/lib";
-import { getCurrentProject } from "./shared/project_state-manager";
+import { getCurrentProject, setCurrentProject } from "./shared/project_state-manager";
 
 export function addTodo(inputs) {
     if (inputs[0].length > 0) {
@@ -154,4 +154,15 @@ export function getFormValues(form) {
     })
 
     return inputValues;
+}
+
+export function initializeDefaultAppState() {
+    const allProjects = getProjects();
+    if (allProjects.length === 0) {
+        addProject("Inbox")
+    }
+    
+    if(!getCurrentProject()){
+        setCurrentProject(getProjects()[0])
+    }
 }
