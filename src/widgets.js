@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo, toggleChecked, togglePriority, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling, renderTodoViewState} from "./features";
+import { addTodo, deleteTodo, toggleChecked, togglePriority, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling, addProjectOptions, renderTodoViewState, renderTodoEditState, getFormValues, editTodo} from "./features";
 import { getTodos, getProjects, saveProjects, getCurrentTodos } from "./shared/lib";
 import { setCurrentProject, getCurrentProject } from "./shared/project_state-manager";
 
@@ -75,7 +75,7 @@ function renderPriorityButton() {
         const todoItems = document.getElementById("todoList").childNodes;
         todoItems.forEach((item) => {
             item.classList.contains("priority") ? 
-            item.style.display = "grid" :
+            item.style.display = "flex" :
             item.style.display = "none";
         })
         setCurrentProject('')
@@ -241,7 +241,7 @@ export function renderTodoForm () {
         form.querySelectorAll("input, select").forEach((input) => formInputs.push(input.value))
         addTodo(formInputs);
         renderTodoList();
-        form.reset()
+        form.reset();
         toggleElementVisibility(inputsContainer);
     });
 
@@ -249,16 +249,8 @@ export function renderTodoForm () {
     const inputsContainer = form.querySelector("#inputsContainer")
     openFormBtn.addEventListener("click", () => {
         //Add options to form select from list of available projects
-        const select = form.querySelector("#projectIdInput");
-        select.innerHTML = ''
-        const allProjects = getProjects();
-        for(const project of allProjects) {
-            const option = document.createElement("option");
-            option.setAttribute("value", project.id);
-            option.textContent = project.title
-            select.append(option)
-        }
-
+        const selectElement = form.querySelector("#projectIdInput");
+        addProjectOptions(selectElement)
         toggleElementVisibility(inputsContainer);
     })
 
@@ -280,7 +272,7 @@ export function renderTodoList() {
         if (todo.projectId !== getCurrentProject().id){
             todoItem.style.display = "none"
         } else {
-            todoItem.style.display = "grid"
+            todoItem.style.display = "flex"
         }
         todoList.append(todoItem);
     })
@@ -321,13 +313,20 @@ function renderTodoItem(todo, index) {
         renderTodoList();
     })
 
-    const todoText = todoItem.querySelector(".todo-text");
-    todoText.addEventListener("click", () => {
-        console.log("todo item clicked")
-        //change todo item to edit state
-        //edit state vs view state
-        //click anywhere else on page returns to view state
+    const todoEditables = todoItem.querySelectorAll(".todo-editable");
+    todoEditables.forEach((editable) => {
+        editable.addEventListener("click", () => {
+            renderTodoEditState(todoItem, todo, todoId)
+            const form = todoItem.querySelector(".todo-edit-form");
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const inputValues = getFormValues(form);
+                editTodo(index, inputValues);
+                renderTodoList();
+            })
+        })
     })
+
 
     return todoItem;
 }
