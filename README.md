@@ -2,6 +2,9 @@
 
 A functional Todo List application built as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-todo-list) curriculum. This project focuses on practicing JavaScript, DOM manipulation, and modular architecture, with an emphasis on clean, maintainable code using the Feature-Sliced Design (FSD) methodology.
 
+![Screen shot of app](/Screenshots/odintodoss.png)
+
+
 ## Features
 
 - Create, edit, and delete tasks  
