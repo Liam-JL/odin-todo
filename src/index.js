@@ -7,7 +7,7 @@ import { initializeDefaultAppState } from "./features";
 
 
 initializeDefaultAppState();
-document.getElementById("app");
+const app = document.getElementById("app");
 app.append(HomePage());
 app.append(renderProjectsBar());
 

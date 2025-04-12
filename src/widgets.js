@@ -1,5 +1,5 @@
 import { addTodo, deleteTodo, toggleChecked, togglePriority, toggleElementVisibility, addProject, deleteProject, addActiveProjectStyling, removeActiveProjectStyling, addProjectOptions, renderTodoViewState, renderTodoEditState, getFormValues, editTodo} from "./features";
-import { getTodos, getProjects, saveProjects, getCurrentTodos } from "./shared/lib";
+import { getTodos, getProjects, saveProjects} from "./shared/lib";
 import { setCurrentProject, getCurrentProject } from "./shared/project_state-manager";
 
 // ─────────────────────────────────────────────────────────
@@ -27,12 +27,12 @@ export function renderProjectsBar() {
 
     const projectBtnContainer = projectBar.querySelector("#projectBtnContainer");
     const allProjects = getProjects();
-    if (allProjects.length === 0) {
-        const Inbox = addProject("Inbox")
-    }
+
 
     allProjects.forEach((project, index) => {
         const projectButton = renderProjectButton(project.title, index);
+        console.log('Project:', project);
+        console.log('Current project:', getCurrentProject());
 
         //highlight active project button
         if(project.id !== getCurrentProject().id) {
@@ -74,9 +74,9 @@ function renderPriorityButton() {
     button.addEventListener("click", () => {
         const todoItems = document.getElementById("todoList").childNodes;
         todoItems.forEach((item) => {
-            item.classList.contains("priority") ? 
-            item.style.display = "flex" :
-            item.style.display = "none";
+            item.classList.contains("priority") 
+                ? item.style.display = "flex" 
+                : item.style.display = "none";
         })
         setCurrentProject('')
         toggleElementVisibility(document.getElementById("projectBarContainer"))
@@ -95,6 +95,7 @@ function renderProjectButton(title, index) {
     const projectId = "project-" + index
     projectButton.id = projectId;
     projectButton.className = "project-bar__project-btn"
+    setCurrentProject(getProjects()[0])
 
     if(title === "Inbox") {
         projectButton.innerHTML = `
@@ -284,7 +285,6 @@ export function renderTodoList() {
 // 📌 WIDGET: Todo Item
 function renderTodoItem(todo, index) {
     const todoId = "todo-" + index;
-    const title = todo.title;
     const todoItem = document.createElement("li");
     todoItem.className = "todo";
 

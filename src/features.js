@@ -38,11 +38,6 @@ export function editTodo(index, inputs) {
     saveTodos(allTodos);
 }
 
-export function renderPriorityTodos() {
-    const allTodos = getTodos();
-    
-}
-
 export function toggleElementVisibility(element) {
     element.classList.contains("active") ? 
     element.classList.remove("active") : 
