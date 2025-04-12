@@ -31,8 +31,6 @@ export function renderProjectsBar() {
 
     allProjects.forEach((project, index) => {
         const projectButton = renderProjectButton(project.title, index);
-        console.log('Project:', project);
-        console.log('Current project:', getCurrentProject());
 
         //highlight active project button
         if(project.id !== getCurrentProject().id) {
